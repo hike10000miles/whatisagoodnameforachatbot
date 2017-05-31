@@ -63,7 +63,7 @@ intents.matches('hello', function(session) {
 
 intents.matches('find_flight', function(session) {
     //var destination = session.dialogData.destination = builder.EntityRecognizer.findEntity(args.entities, 'destination').entity;
-    session.send('finding flight to '); 
+    session.send('finding flight to where ever you want!'); 
 });
 
 intents.matches('find_city', function(session) {
