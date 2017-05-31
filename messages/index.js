@@ -44,31 +44,31 @@ intents.matches('hello', function(session) {
     session.send('I am here to help you out!');
 });
 
-/*intents.matches('find_flight', [
+intents.matches('find_city', [
     function(session, args, next) {
-        var destination = session.dialogDate.destination = builder.EntityRecognizer.findEntity(args.entities, 'destination').entity;
+        var destination = session.dialogDate.destination = builder.EntityRecognizer.findEntity(args.entities, 'country').entity;
         if(!session.dialogData.destination) {
-            builder.Prompts.text(session, "where would you like to go?");
+            builder.Prompts.text(session, "Beautiful country to go, which cities are you thinking?");
         } else {
             next();
         }
     },
     function(session, results, next) {
-        if(results.response) {
+        /*if(results.response) {
             session.dialogData.destination = reslts.response;
-        }
-        session.send('Finding flights to ' + session.dialogData.destination);
+        }*/
+        session.send('Finding flights to ' + results.response);
     }
-]);*/
+]);
 
 intents.matches('find_flight', function(session) {
     //var destination = session.dialogData.destination = builder.EntityRecognizer.findEntity(args.entities, 'destination').entity;
     session.send('finding flight to where ever you want!'); 
 });
 
-intents.matches('find_city', function(session) {
+/*intents.matches('find_city', function(session) {
    session.send('Here are the hotest destination this year: Paris, London, Toronto.'); 
-});
+});*/
 
 if (useEmulator) {
     var restify = require('restify');
