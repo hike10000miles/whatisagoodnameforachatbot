@@ -46,8 +46,7 @@ intents.matches('hello', function(session) {
 
 intents.matches('find_city', [
     function(session, args, next) {
-        var country = session.dialogDate.country = builder.EntityRecognizer.findEntity(args.entities, 'country').entity;
-        console.log(country);
+        var country = session.dialogData.country = builder.EntityRecognizer.findEntity(args.entities, 'country').entity;
         if(!session.dialogData.country) {
             builder.Prompts.text(session, "Beautiful country to go, which cities are you thinking?");
         } else {
@@ -55,9 +54,9 @@ intents.matches('find_city', [
         }
     },
     function(session, results, next) {
-        /*if(results.response) {
-            session.dialogData.destination = reslts.response;
-        }*/
+        if(results.response) {
+            session.dialogData.country = reslts.response;
+        }
         session.send('Finding flights to ' + results.response);
     }
 ]);
