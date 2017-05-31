@@ -46,7 +46,8 @@ intents.matches('hello', function(session) {
 
 intents.matches('find_city', [
     function(session, args, next) {
-        var country = session.dialogData.country = builder.EntityRecognizer.findEntity(args.entities, 'country').entity;
+        var country = builder.EntityRecognizer.findEntity(args.entities, 'country').entity;
+        session.dialogData.country = builder.EntityRecognizer.findEntity(args.entities, 'country').entity;
         if(!session.dialogData.country) {
             builder.Prompts.text(session, "Which country do you want to go?");
         } else {
