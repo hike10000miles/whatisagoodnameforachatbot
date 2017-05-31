@@ -46,23 +46,31 @@ intents.matches('hello', function(session) {
 
 intents.matches('find_city', [
     function(session, args, next) {
-        //var country = session.dialogData.country = builder.EntityRecognizer.findEntity(args.entities, 'country').entity;
-        var country = builder.EntityRecognizer.findEntity(args.entities, 'country').entity;
-        //if(!session.dialogData.country) {
-        if(country) {
-            builder.Prompts.text(session, "Beautiful country to go, which cities are you thinking?");
+        var country = session.dialogData.country = builder.EntityRecognizer.findEntity(args.entities, 'country').entity;
+        if(!session.dialogData.country) {
+            builder.Prompts.text(session, "Which country do you want to go?");
         } else {
             next();
         }
-
-        //builder.Prompts.text(session, "Beautiful country to go, which cities are you thinking?");
     },
     function(session, results, next) {
         if(results.response) {
             session.dialogData.country = reslts.response;
         }
-        session.send('Finding flights to ' + results.response);
-        session.send("20 flight find!");
+        if(session.dialogData.country && !session.dialogData.city) {
+            builder.Prompts.text(session, "Which city do you want to go?");
+        } else {
+            next();
+        }
+    },
+    function(session, results, next) {
+        if(results.response) {
+            session.dialogData.city = reslts.response;
+            session.send("Finding flight to " + session.dialogData.city);
+            session.send("20 flight find");
+        } else {
+            session.send("Ooppss, sorry, I am broken.");
+        }
     }
 ]);
 
